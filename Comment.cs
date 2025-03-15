@@ -12,6 +12,17 @@ namespace КП_ООП
         public DateTime CreatedAt { get; set; }
         public User Author { get; set; }
 
-        public static Comment Create(string text, User author) => throw new NotImplementedException();
+        public Comment(string text, User author)
+        {
+            if (string.IsNullOrEmpty(text)) throw new ArgumentException("Text cannot be empty.");
+            Text = text;
+            CreatedAt = DateTime.Now;
+            Author = author;
+        }
+
+        public static Comment Create(string text, User author)
+        {
+            return new Comment(text, author);
+        }
     }
 }
