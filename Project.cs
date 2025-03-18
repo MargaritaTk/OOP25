@@ -53,7 +53,6 @@ namespace КП_ООП
           Tasks.Add(task);
         }
 
-        // Публичный метод для проверки активных задач
         public bool HasActiveTasks()
         {
             return Tasks.Any(t => t.Status != КП_ООП.TaskStatus.Closed);
