@@ -9,9 +9,12 @@ namespace КП_ООП
 {
     public class ProjectManager : User, IProject, ITask, IComment, IExport
     {
-        private List<Project> projects = new List<Project>(); 
+        private List<Project> projects = new List<Project>();
 
-        public ProjectManager(string login, string password) : base(login, password, Role.ProjectManager) { }
+        public ProjectManager(string login, string password, UserRegistration userRegistry)
+        : base(login, password, Role.ProjectManager)
+        {
+        }
 
         public override void UpdateProfile(string login, string password)
         {
