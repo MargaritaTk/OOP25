@@ -8,7 +8,10 @@ namespace КП_ООП
 {
     public class Developer : User, ITask, IComment
     {
-        public Developer(string login, string password) : base(login, password, Role.Developer) { }
+        public Developer(string login, string password, UserRegistration userRegistry)
+        : base(login, password, Role.Developer)
+        {
+        }
 
         public override void UpdateProfile(string login, string password)
         {
@@ -31,7 +34,6 @@ namespace КП_ООП
 
             if (!string.IsNullOrEmpty(newTitle)) task.Title = newTitle;
             if (!string.IsNullOrEmpty(newDescription)) task.Description = newDescription;
-            if (newDeadline > DateTime.Now) task.Deadline = newDeadline;
         }
 
         public void AssignDeveloper(КП_ООП.Task task, Developer developer)
