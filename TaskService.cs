@@ -27,6 +27,7 @@ namespace КП_ООП
             if (newDeadline > DateTime.Now) task.Deadline = newDeadline;
         }
 
+
         public void AssignDeveloper(КП_ООП.Task task, Developer developer)
         {
             if (task == null) throw new ArgumentNullException(nameof(task));
