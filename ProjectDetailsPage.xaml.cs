@@ -100,7 +100,9 @@ namespace ProjectServ
 
         private void EditProjectButton_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Функція редагування проєкту ще не реалізована.", "Інформація", MessageBoxButton.OK, MessageBoxImage.Information);
+            EditProjectPage editProjectPage = new EditProjectPage(_userRegistry, _projectService, _taskService, _commentService, _exportService, _currentUser, _project);
+            editProjectPage.Show();
+            this.Close();
         }
 
         private void DeleteProjectButton_Click(object sender, RoutedEventArgs e)
