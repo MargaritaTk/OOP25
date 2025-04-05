@@ -15,14 +15,11 @@ namespace КП_ООП
             _author = author ?? throw new ArgumentNullException(nameof(author));
         }
 
-        public void AddComment(КП_ООП.Task task, string text)
+        public void AddComment(Task task, string text)
         {
             if (task == null) throw new ArgumentNullException(nameof(task));
             if (string.IsNullOrEmpty(text)) throw new ArgumentException("Comment text cannot be empty.");
-            if (task.Status == КП_ООП.TaskStatus.Closed)
-                throw new InvalidOperationException("You cannot add a comment to a closed task.");
-
-            task.Comments.Add(new Comment(text, _author));
+            task.AddComment(text, _author);
         }
     }
 }
