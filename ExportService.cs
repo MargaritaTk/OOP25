@@ -11,11 +11,10 @@ namespace КП_ООП
     {
         public string ExportProjects(List<Project> projects)
         {
-            if (projects == null) throw new ArgumentNullException(nameof(projects));
-            return JsonSerializer.Serialize(projects);
+            return JsonSerializer.Serialize(projects ?? throw new ArgumentNullException(nameof(projects)));
         }
 
-        public IEnumerable<Project> ImportProjects(string jsonData)
+        public List<Project> ImportProjects(string jsonData)
         {
             if (string.IsNullOrEmpty(jsonData)) throw new ArgumentException("JSON data cannot be empty.");
             return JsonSerializer.Deserialize<List<Project>>(jsonData) ?? new List<Project>();
