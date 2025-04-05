@@ -9,8 +9,9 @@ namespace КП_ООП
     public interface ITask
     {
         Task CreateTask(string title, string description, DateTime deadline);
-        void UpdateTask(Task task, string newTitle, string newDescription, DateTime newDeadline);
+        void UpdateTask(Task task, string newTitle, string newDescription);
         void AssignDeveloper(Task task, Developer developer);
         void UpdateStatus(Task task, TaskStatus newStatus);
+        void UpdateDeadline(Task task, DateTime newDeadline);
     }
 }

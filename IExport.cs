@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace КП_ООП
 {
-    using System.Text.Json;
 
     public interface IExport
     {
         string ExportProjects(List<Project> projects);
-        IEnumerable<Project> ImportProjects(string jsonData);
+        List<Project> ImportProjects(string jsonData);
     }
 }

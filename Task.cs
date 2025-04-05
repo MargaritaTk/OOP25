@@ -8,39 +8,57 @@ namespace КП_ООП
 {
     public class Task
     {
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public DateTime Deadline { get; set; }
-        public КП_ООП.TaskStatus Status { get; set; }
-        public Developer AssignedDeveloper { get; set; }
-        public List<Comment> Comments { get; set; } = new List<Comment>();
+        public string Title { get; private set; }
+        public string Description { get; private set; }
+        public DateTime Deadline { get; private set; }
+        public TaskStatus Status { get; private set; }
+        public Developer AssignedDeveloper { get; private set; }
+        public List<Comment> Comments { get; } = new List<Comment>();
 
-        public Task()
-        {
-            Title = "Default Task";
-            Description = "";
-            Deadline = DateTime.Now.AddDays(1);
-            Status = КП_ООП.TaskStatus.Open;
-        }
+        public event Action<TaskStatus> TaskStatusChanged;
 
         public Task(string title, string description, DateTime deadline)
         {
             if (string.IsNullOrEmpty(title)) throw new ArgumentException("Title cannot be empty.");
             if (deadline < DateTime.Now) throw new ArgumentException("Deadline must be in the future.");
             Title = title;
-            Description = description;
+            Description = description ?? "";
             Deadline = deadline;
-            Status = КП_ООП.TaskStatus.Open;
+            Status = TaskStatus.Open;
         }
 
-        public virtual void UpdateStatus(КП_ООП.TaskStatus newStatus)
+        public void Update(string title, string description)
         {
-            if (Status == КП_ООП.TaskStatus.Closed) throw new InvalidOperationException("Cannot update closed task.");
-            Status = newStatus;
-            TaskStatusChanged?.Invoke(newStatus);
+            if (Status == TaskStatus.Closed) throw new InvalidOperationException("Cannot update closed task.");
+            if (!string.IsNullOrEmpty(title)) Title = title;
+            if (description != null) Description = description;
         }
 
-        public event Action<КП_ООП.TaskStatus> TaskStatusChanged;
+        public void SetStatus(TaskStatus status)
+        {
+            if (Status == TaskStatus.Closed) throw new InvalidOperationException("Cannot update closed task.");
+            Status = status;
+            TaskStatusChanged?.Invoke(status); 
+        }
+
+        public void SetDeadline(DateTime deadline)
+        {
+            if (Status == TaskStatus.Closed) throw new InvalidOperationException("Cannot update closed task.");
+            if (deadline < DateTime.Now) throw new ArgumentException("Deadline must be in the future.");
+            Deadline = deadline;
+        }
+
+        public void AssignDeveloper(Developer developer)
+        {
+            if (Status == TaskStatus.Closed) throw new InvalidOperationException("Cannot assign developer to closed task.");
+            AssignedDeveloper = developer;
+        }
+
+        public void AddComment(string text, User author)
+        {
+            if (Status == TaskStatus.Closed) throw new InvalidOperationException("Cannot comment on closed task.");
+            Comments.Add(new Comment(text, author));
+        }
     }
     public enum TaskStatus
     {
