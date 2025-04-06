@@ -47,26 +47,26 @@ namespace ProjectServ
 
                 if (string.IsNullOrEmpty(name))
                 {
-                    MessageBox.Show("Назва проєкту не може бути порожньою!", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("The project name cannot be empty!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
                 if (_currentUser is ProjectManager projectManager)
                 {
                     projectManager.CreateProject(name, description);
-                    MessageBox.Show("Проєкт успішно створено!", "Успіх", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("The project has been successfully created!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                     ProjectListPage projectListPage = new ProjectListPage(_userRegistry, _projectService, _taskService, _commentService, _exportService, _currentUser);
                     projectListPage.Show();
                     this.Close();
                 }
                 else
                 {
-                    MessageBox.Show("Тільки Project Manager може створювати проєкти.", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Only Project Manager can create projects.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Помилка при створенні проєкту: {ex.Message}", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Error creating a project: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

@@ -51,12 +51,12 @@ namespace ProjectServ
 
                 if (string.IsNullOrEmpty(name))
                 {
-                    MessageBox.Show("Назва проєкту не може бути порожньою!", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("The project name cannot be empty!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
                 _projectService.UpdateProject(_project, name, description);
-                MessageBox.Show("Проєкт успішно оновлено!", "Успіх", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("The project has been successfully updated!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 ProjectDetailsPage projectDetailsPage = new ProjectDetailsPage(_userRegistry, _projectService, _taskService, _commentService, _exportService, _currentUser, _project);
                 projectDetailsPage.Show();
@@ -64,7 +64,7 @@ namespace ProjectServ
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Помилка при оновленні проєкту: {ex.Message}", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Error updating a project: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

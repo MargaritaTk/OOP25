@@ -34,18 +34,18 @@ namespace ProjectServ
 
             if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password))
             {
-                MessageBox.Show("Введіть логін і пароль!", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Enter your login and password!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
             var user = _userRegistry.GetUsers().FirstOrDefault(u => u.Login == login && u.Password == password);
             if (user == null)
             {
-                MessageBox.Show("Неправильний логін або пароль!", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Incorrect login or password!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
-            MessageBox.Show($"Вхід виконано як {user.UserRole}!", "Успіх", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show($"Login is performed as {user.UserRole}!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             MainPage mainPage = new MainPage(_userRegistry, user);
             mainPage.Show();
             this.Close();

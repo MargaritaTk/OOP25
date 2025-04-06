@@ -47,7 +47,7 @@ namespace ProjectServ
             var developers = _userRegistry.GetUsers().Where(u => u.UserRole == Role.Developer).ToList();
             if (developers.Count == 0)
             {
-                AssignedDeveloperComboBox.Items.Add(new ComboBoxItem { Content = "Немає розробників", IsEnabled = false });
+                AssignedDeveloperComboBox.Items.Add(new ComboBoxItem { Content = "No developers", IsEnabled = false });
             }
             else
             {
@@ -69,13 +69,13 @@ namespace ProjectServ
 
                 if (string.IsNullOrEmpty(title))
                 {
-                    MessageBox.Show("Назва завдання не може бути порожньою!", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("The task name cannot be empty!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
                 if (!deadline.HasValue)
                 {
-                    MessageBox.Show("Виберіть дедлайн!", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Choose a deadline!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
@@ -101,14 +101,14 @@ namespace ProjectServ
                     _commentService.AddComment(newTask, comment);
                 }
 
-                MessageBox.Show("Завдання успішно створено!", "Успіх", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Task successfully created!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 ProjectDetailsPage projectDetailsPage = new ProjectDetailsPage(_userRegistry, _projectService, _taskService, _commentService, _exportService, _currentUser, _project);
                 projectDetailsPage.Show();
                 this.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Помилка при створенні завдання: {ex.Message}", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Error creating a task: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

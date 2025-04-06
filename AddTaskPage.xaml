@@ -18,31 +18,31 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Назва:" FontSize="14" Margin="0,0,0,5" Grid.Row="0" Grid.Column="0"/>
+        <TextBlock Text="Title:" FontSize="14" Margin="0,0,0,5" Grid.Row="0" Grid.Column="0" FontFamily="Candara"/>
         <TextBox x:Name="TaskTitleTextBox" Height="25" Margin="0,0,10,10" BorderBrush="#1E3A8A" BorderThickness="1" Grid.Row="1" Grid.Column="0"/>
 
-        <TextBlock Text="Опис:" FontSize="14" Margin="0,0,0,5" Grid.Row="2" Grid.Column="0"/>
+        <TextBlock Text="Description:" FontSize="14" Margin="0,0,0,5" Grid.Row="2" Grid.Column="0" FontFamily="Candara"/>
         <TextBox x:Name="TaskDescriptionTextBox" Height="50" Margin="0,0,10,10" BorderBrush="#1E3A8A" BorderThickness="1" AcceptsReturn="True" Grid.Row="3" Grid.Column="0"/>
 
-        <TextBlock Text="Виконавець:" FontSize="14" Margin="0,0,0,5" Grid.Row="0" Grid.Column="1"/>
+        <TextBlock Text="Developer:" FontSize="14" Margin="0,0,0,5" Grid.Row="0" Grid.Column="1"/>
         <ComboBox x:Name="AssignedDeveloperComboBox" Height="25" Margin="0,0,0,10" Grid.Row="1" Grid.Column="1"/>
 
-        <TextBlock Text="Статус:" FontSize="14" Margin="0,0,0,5" Grid.Row="2" Grid.Column="1"/>
+        <TextBlock Text="Status:" FontSize="14" Margin="0,0,0,5" Grid.Row="2" Grid.Column="1" FontFamily="Candara"/>
         <ComboBox x:Name="StatusComboBox" Height="25" Margin="0,0,0,10" Grid.Row="3" Grid.Column="1">
             <ComboBoxItem Content="Open"/>
             <ComboBoxItem Content="InProgress"/>
             <ComboBoxItem Content="Closed"/>
         </ComboBox>
 
-        <TextBlock Text="Коментар:" FontSize="14" Margin="0,0,0,5" Grid.Row="4" Grid.Column="0"/>
+        <TextBlock Text="Comment:" FontSize="14" Margin="0,0,0,5" Grid.Row="4" Grid.Column="0" FontFamily="Candara"/>
         <TextBox x:Name="CommentTextBox" Height="50" Margin="0,0,10,10" BorderBrush="#1E3A8A" BorderThickness="1" AcceptsReturn="True" Grid.Row="5" Grid.Column="0"/>
 
-        <TextBlock Text="Дедлайн:" FontSize="14" Margin="0,0,0,5" Grid.Row="4" Grid.Column="1"/>
+        <TextBlock Text="Deadline:" FontSize="14" Margin="0,0,0,5" Grid.Row="4" Grid.Column="1" FontFamily="Candara"/>
         <DatePicker x:Name="DeadlineDatePicker" Height="25" Margin="0,0,0,10" Grid.Row="5" Grid.Column="1"/>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="6" Grid.ColumnSpan="2">
-            <Button x:Name="CancelButton" Content="СКАСУВАТИ" Background="#3B82F6" Foreground="White" Height="35" Width="100" Margin="0,0,10,0" Click="CancelButton_Click"/>
-            <Button x:Name="SaveButton" Content="ЗБЕРЕГТИ" Background="#3B82F6" Foreground="White" Height="35" Width="100" Click="SaveButton_Click"/>
+            <Button x:Name="CancelButton" Content="CANCEL" Background="#3B82F6" Foreground="White" Height="35" Width="100" Margin="0,0,10,0" Click="CancelButton_Click" FontFamily="Candara"/>
+            <Button x:Name="SaveButton" Content="SAVE" Background="#3B82F6" Foreground="White" Height="35" Width="100" Click="SaveButton_Click" FontFamily="Candara"/>
         </StackPanel>
     </Grid>
 </Window>

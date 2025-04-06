@@ -53,9 +53,9 @@ namespace ProjectServ
 
             if (_project.Tasks == null || _project.Tasks.Count == 0)
             {
-                ToDoListBox.Items.Add(new TextBlock { Text = "Немає завдань.", FontStyle = FontStyles.Italic });
-                InProgressListBox.Items.Add(new TextBlock { Text = "Немає завдань.", FontStyle = FontStyles.Italic });
-                DoneListBox.Items.Add(new TextBlock { Text = "Немає завдань.", FontStyle = FontStyles.Italic });
+                ToDoListBox.Items.Add(new TextBlock { Text = "No tasks.", FontStyle = FontStyles.Italic });
+                InProgressListBox.Items.Add(new TextBlock { Text = "No tasks.", FontStyle = FontStyles.Italic });
+                DoneListBox.Items.Add(new TextBlock { Text = "No tasks.", FontStyle = FontStyles.Italic });
                 return;
             }
 
@@ -110,14 +110,14 @@ namespace ProjectServ
             try
             {
                 _projectService.DeleteProject(_project);
-                MessageBox.Show("Проєкт успішно видалено!", "Успіх", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Project successfully deleted!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 ProjectListPage projectListPage = new ProjectListPage(_userRegistry, _projectService, _taskService, _commentService, _exportService, _currentUser);
                 projectListPage.Show();
                 this.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Помилка при видаленні проєкту: {ex.Message}", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Error deleting a project: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -128,11 +128,11 @@ namespace ProjectServ
                 List<Project> projectsToExport = new List<Project> { _project };
                 string json = _exportService.ExportProjects(projectsToExport);
                 File.WriteAllText($"{_project.Name}_export.json", json);
-                MessageBox.Show($"Проєкт експортовано у файл {_project.Name}_export.json!", "Успіх", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show($"Project exported to file {_project.Name}_export.json!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Помилка при експорті проєкту: {ex.Message}", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Error exporting a project: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -143,7 +143,7 @@ namespace ProjectServ
                 Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog
                 {
                     Filter = "JSON файли (*.json)|*.json",
-                    Title = "Виберіть файл JSON для імпорту"
+                    Title = "Choose JSON file for imports"
                 };
                 if (openFileDialog.ShowDialog() == true)
                 {
@@ -157,7 +157,7 @@ namespace ProjectServ
                             _projectService.AddTaskToProject(importedProject, task.Title, task.Description, task.Deadline, task.Status, task.AssignedDeveloper);
                         }
                     }
-                    MessageBox.Show("Проєкт(и) успішно імпортовано!", "Успіх", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Project(s) successfully imported!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                     if (importedProjects.Exists(p => p.Name == _project.Name))
                     {
                         LoadProjectDetails();
@@ -172,7 +172,7 @@ namespace ProjectServ
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Помилка при імпорті проєкту: {ex.Message}", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Error importing a project: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

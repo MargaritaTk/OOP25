@@ -36,12 +36,12 @@ public partial class MainWindow : Window
 
             if (isProjectManager && isDeveloper)
             {
-                MessageBox.Show("Оберіть лише одну роль!", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Choose only one role!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             if (!isProjectManager && !isDeveloper)
             {
-                MessageBox.Show("Оберіть роль!", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Choose a role!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -49,8 +49,8 @@ public partial class MainWindow : Window
             Guest guest = new Guest(_userRegistry);
             User newUser = guest.Register(login, password, targetRole);
 
-            MessageBox.Show($"Користувач {newUser.Login} успішно зареєстрований як {newUser.UserRole}!",
-                "Успіх", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show($"User {newUser.Login} successfully registered as {newUser.UserRole}!",
+                "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
             MainPage mainPage = new MainPage(_userRegistry, newUser);
             mainPage.Show();
@@ -58,15 +58,15 @@ public partial class MainWindow : Window
         }
         catch (ArgumentException ex)
         {
-            MessageBox.Show(ex.Message, "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         catch (InvalidOperationException ex)
         {
-            MessageBox.Show(ex.Message, "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         catch (Exception ex)
         {
-            MessageBox.Show($"Виникла неочікувана помилка: {ex.Message}", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"An unexpected error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 

@@ -46,13 +46,13 @@ namespace ProjectServ
         {
             TaskTitleTextBlock.Text = _task.Title;
             TaskDescriptionTextBlock.Text = _task.Description;
-            TaskDeadlineTextBlock.Text = $"Дедлайн: {_task.Deadline:dd.MM.yyyy}";
-            TaskStatusTextBlock.Text = $"Статус: {_task.Status}";
+            TaskDeadlineTextBlock.Text = $"Deadline: {_task.Deadline:dd.MM.yyyy}";
+            TaskStatusTextBlock.Text = $"Status: {_task.Status}";
 
             CommentsListBox.Items.Clear();
             if (_task.Comments == null || _task.Comments.Count == 0)
             {
-                CommentsListBox.Items.Add(new TextBlock { Text = "Немає коментарів.", FontStyle = FontStyles.Italic });
+                CommentsListBox.Items.Add(new TextBlock { Text = "No Comments.", FontStyle = FontStyles.Italic });
             }
             else
             {
@@ -70,7 +70,7 @@ namespace ProjectServ
 
         private void AddCommentButton_Click(object sender, RoutedEventArgs e)
         {
-            string commentText = Microsoft.VisualBasic.Interaction.InputBox("Введіть коментар:", "Додати коментар", "");
+            string commentText = Microsoft.VisualBasic.Interaction.InputBox("Enter a comment:", "Add a comment", "");
             if (!string.IsNullOrEmpty(commentText))
             {
                 try
@@ -80,7 +80,7 @@ namespace ProjectServ
                 }
                 catch (System.Exception ex)
                 {
-                    MessageBox.Show($"Помилка при додаванні коментаря: {ex.Message}", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"Error adding comment: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -95,7 +95,7 @@ namespace ProjectServ
             }
             catch (System.Exception ex)
             {
-                MessageBox.Show($"Помилка при зміні статусу: {ex.Message}", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Error changing status: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

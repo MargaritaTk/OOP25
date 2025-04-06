@@ -25,19 +25,4 @@ namespace ProjectServ
             return JsonSerializer.Deserialize<List<Project>>(jsonData) ?? new List<Project>();
         }
     }
-
-    //public class ExportService : IExport
-    //{
-    //    public string ExportProjects(List<Project> projects)
-    //    {
-    //        if (projects == null) throw new ArgumentNullException(nameof(projects));
-    //        return JsonSerializer.Serialize(projects);
-    //    }
-
-    //    public IEnumerable<Project> ImportProjects(string jsonData)
-    //    {
-    //        if (string.IsNullOrEmpty(jsonData)) throw new ArgumentException("JSON data cannot be empty.");
-    //        return JsonSerializer.Deserialize<List<Project>>(jsonData) ?? new List<Project>();
-    //    }
-    //}
 }

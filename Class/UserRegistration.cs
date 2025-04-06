@@ -70,7 +70,7 @@ namespace ProjectServ
                 var options = new JsonSerializerOptions
                 {
                     WriteIndented = true,
-                    Converters = { new UserJsonConverter(this) } // Передаємо this
+                    Converters = { new UserJsonConverter(this) } 
                 };
                 string json = JsonSerializer.Serialize(_users, options);
                 File.WriteAllText(FilePath, json);
@@ -92,7 +92,7 @@ namespace ProjectServ
 
                     var options = new JsonSerializerOptions
                     {
-                        Converters = { new UserJsonConverter(this) } // Передаємо this
+                        Converters = { new UserJsonConverter(this) } 
                     };
                     var loadedUsers = JsonSerializer.Deserialize<List<User>>(json, options);
                     if (loadedUsers != null)

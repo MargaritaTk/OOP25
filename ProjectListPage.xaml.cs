@@ -44,7 +44,7 @@ namespace ProjectServ
             var projects = _projectService.GetProjects();
             if (projects == null || projects.Count == 0)
             {
-                ProjectsListBox.Items.Add(new TextBlock { Text = "Немає проєктів для відображення.", FontStyle = FontStyles.Italic });
+                ProjectsListBox.Items.Add(new TextBlock { Text = "No projects to display.", FontStyle = FontStyles.Italic });
                 return;
             }
 

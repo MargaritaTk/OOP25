@@ -50,13 +50,13 @@ namespace ProjectServ
             RecentProjectsListBox.Items.Clear();
             if (recentProjects.Count == 0)
             {
-                RecentProjectsListBox.Items.Add(new TextBlock { Text = "Немає останніх проєктів.", FontStyle = FontStyles.Italic });
+                RecentProjectsListBox.Items.Add(new TextBlock { Text = "No recent projects.", FontStyle = FontStyles.Italic });
             }
             else
             {
                 foreach (var project in recentProjects)
                 {
-                    RecentProjectsListBox.Items.Add(new TextBlock { Text = $"{project.Name} - Створено" });
+                    RecentProjectsListBox.Items.Add(new TextBlock { Text = $"{project.Name} - Created" });
                 }
             }
         }
