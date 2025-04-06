@@ -15,7 +15,6 @@ namespace ProjectServ
             var options = new JsonSerializerOptions
             {
                 WriteIndented = true,
-                //Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
             };
             return JsonSerializer.Serialize(projects ?? throw new ArgumentNullException(nameof(projects)), options);
         }

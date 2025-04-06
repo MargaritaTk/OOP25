@@ -151,20 +151,4 @@ namespace ProjectServ
             writer.WriteEndObject();
         }
     }
-
-    //public class UserRegistration
-    //{
-    //    private readonly List<User> _users = new List<User>();
-
-    //    public void AddUser(User user)
-    //    {
-    //        if (user == null) throw new ArgumentNullException(nameof(user));
-    //        _users.Add(user);
-    //    }
-
-    //    public bool IsLoginUnique(string login)
-    //    {
-    //        return !_users.Any(u => u.Login == login);
-    //    }
-    //}
 }

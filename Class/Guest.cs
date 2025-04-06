@@ -39,15 +39,6 @@ namespace ProjectServ
             UserRegistered?.Invoke(user); 
             return user;
         }
-        public interface IComment
-        {
-            void AddComment(Task task, string text);
-        }
-        public interface IExport
-        {
-            string ExportProjects(List<Project> projects);
-            List<Project> ImportProjects(string jsonData);
-        }
     }
 }
 //    public class Guest : User
