@@ -9,12 +9,7 @@ namespace КП_ООП
 {
     public class ExportService : IExport
     {
-        private readonly ProjectService _projectService;
-
-        public ExportService(ProjectService projectService)
-        {
-            _projectService = projectService ?? throw new ArgumentNullException(nameof(projectService));
-        }
+        private const string FilePath = "projects.json";
 
         public ExportService()
         {
@@ -30,12 +25,6 @@ namespace КП_ООП
             return JsonSerializer.Serialize(projects, options);
         }
 
-        public List<Project> ImportProjects(string jsonData)
-        {
-            if (string.IsNullOrEmpty(jsonData)) throw new ArgumentException("JSON data cannot be empty.");
-            return JsonSerializer.Deserialize<List<Project>>(jsonData) ?? new List<Project>();
-        }
-
         public void ExportProjectsToFile(List<Project> projects, string filePath)
         {
             if (string.IsNullOrEmpty(filePath)) throw new ArgumentException("File path cannot be empty.");
@@ -43,23 +32,18 @@ namespace КП_ООП
             File.WriteAllText(filePath, json);
         }
 
-        public List<Project> ImportProjectsFromFile(string filePath)
+        public void SaveToFile(List<Project> projects)
         {
-            if (string.IsNullOrEmpty(filePath)) throw new ArgumentException("File path cannot be empty.");
-            if (!File.Exists(filePath)) throw new FileNotFoundException($"File {filePath} not found.");
-
-            string json = File.ReadAllText(filePath);
-            var projects = ImportProjects(json);
-
-            if (_projectService != null)
+            try
             {
-                _projectService.GetProjects().Clear();
-                _projectService.GetProjects().AddRange(projects);
-                _projectService.SaveToFile();
+                string json = ExportProjects(projects);
+                File.WriteAllText(FilePath, json);
+                Console.WriteLine($"Projects saved to file: {FilePath}, number of projects: {projects.Count}");
             }
-
-            return projects;
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error saving projects: {ex.Message}");
+            }
         }
     }
 }
-   

@@ -94,11 +94,6 @@ namespace КП_ООП
         {
             _exportService.ExportProjectsToFile(projects, filePath);
         }
-
-        public List<Project> ImportProjects(string filePath)
-        {
-            return _exportService.ImportProjectsFromFile(filePath);
-        }
     }
 }
 

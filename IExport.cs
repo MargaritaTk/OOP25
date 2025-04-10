@@ -9,7 +9,9 @@ namespace КП_ООП
 
     public interface IExport
     {
-        string ExportProjects(List<Project> projects);
-        List<Project> ImportProjects(string jsonData);
+            string ExportProjects(List<Project> projects);
+            void ExportProjectsToFile(List<Project> projects, string filePath);
+            void SaveToFile(List<Project> projects);
+
+        }
     }
-}
