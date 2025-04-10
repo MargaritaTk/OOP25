@@ -47,10 +47,10 @@ public partial class MainWindow : Window
 
             Role targetRole = isProjectManager ? Role.ProjectManager : Role.Developer;
             Guest guest = new Guest(_userRegistry);
-            User newUser = guest.Register(login, password, targetRole);
 
-            MessageBox.Show($"User {newUser.Login} successfully registered as {newUser.UserRole}!",
-                "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            guest.UserRegistered += OnUserRegistered;
+
+            User newUser = guest.Register(login, password, targetRole);
 
             MainPage mainPage = new MainPage(_userRegistry, newUser);
             mainPage.Show();
@@ -68,6 +68,15 @@ public partial class MainWindow : Window
         {
             MessageBox.Show($"An unexpected error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
+    }
+
+    private void OnUserRegistered(User newUser)
+    {
+        Dispatcher.Invoke(() =>
+        {
+            MessageBox.Show($"User {newUser.Login} has been registered with role {newUser.UserRole}!",
+                "Registration Success", MessageBoxButton.OK, MessageBoxImage.Information);
+        });
     }
 
     private void LoginLink_Click(object sender, RoutedEventArgs e)
