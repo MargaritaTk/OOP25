@@ -20,7 +20,6 @@ namespace ProjectServ
     public partial class MainPage : Window
     {
         private readonly UserRegistration _userRegistry;
-        private readonly ProjectService _projectService;
         private readonly TaskService _taskService;
         private readonly CommentService _commentService;
         private readonly ExportService _exportService;
@@ -30,15 +29,15 @@ namespace ProjectServ
         {
             InitializeComponent();
             _userRegistry = userRegistry;
-            _projectService = new ProjectService();
+            _exportService = new ExportService();
             _taskService = new TaskService();
             _commentService = new CommentService(currentUser);
-            _exportService = new ExportService();
             _currentUser = currentUser;
+
 
             if (_currentUser is ProjectManager projectManager)
             {
-                projectManager.InitializeServices(_projectService, _taskService, _commentService, _exportService);
+                projectManager.InitializeServices(ProjectService.Instance, _taskService, _commentService, _exportService);
             }
 
             LoadRecentProjects();
@@ -46,7 +45,7 @@ namespace ProjectServ
 
         private void LoadRecentProjects()
         {
-            var recentProjects = _projectService.GetProjects().Take(5).ToList();
+            var recentProjects = ProjectService.Instance.GetProjects(_currentUser).Take(5).ToList();
             RecentProjectsListBox.Items.Clear();
             if (recentProjects.Count == 0)
             {
@@ -63,14 +62,14 @@ namespace ProjectServ
 
         private void CreateProjectButton_Click(object sender, RoutedEventArgs e)
         {
-            CreateProjectPage createProjectPage = new CreateProjectPage(_userRegistry, _projectService, _taskService, _commentService, _exportService, _currentUser);
+            CreateProjectPage createProjectPage = new CreateProjectPage(_userRegistry, _taskService, _commentService, _exportService, _currentUser);
             createProjectPage.Show();
             this.Close();
         }
 
         private void ProjectListButton_Click(object sender, RoutedEventArgs e)
         {
-            ProjectListPage projectListPage = new ProjectListPage(_userRegistry, _projectService, _taskService, _commentService, _exportService, _currentUser);
+            ProjectListPage projectListPage = new ProjectListPage(_userRegistry, _taskService, _commentService, _exportService, _currentUser);
             projectListPage.Show();
             this.Close();
         }

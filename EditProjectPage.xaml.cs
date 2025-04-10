@@ -20,18 +20,16 @@ namespace ProjectServ
     public partial class EditProjectPage : Window
     {
         private readonly UserRegistration _userRegistry;
-        private readonly ProjectService _projectService;
         private readonly TaskService _taskService;
         private readonly CommentService _commentService;
         private readonly ExportService _exportService;
         private readonly User _currentUser;
         private readonly Project _project;
 
-        public EditProjectPage(UserRegistration userRegistry, ProjectService projectService, TaskService taskService, CommentService commentService, ExportService exportService, User currentUser, Project project)
+        public EditProjectPage(UserRegistration userRegistry, TaskService taskService, CommentService commentService, ExportService exportService, User currentUser, Project project)
         {
             InitializeComponent();
             _userRegistry = userRegistry;
-            _projectService = projectService;
             _taskService = taskService;
             _commentService = commentService;
             _exportService = exportService;
@@ -55,10 +53,10 @@ namespace ProjectServ
                     return;
                 }
 
-                _projectService.UpdateProject(_project, name, description);
+                ProjectService.Instance.UpdateProject(_project, name, description);
                 MessageBox.Show("The project has been successfully updated!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                ProjectDetailsPage projectDetailsPage = new ProjectDetailsPage(_userRegistry, _projectService, _taskService, _commentService, _exportService, _currentUser, _project);
+                ProjectDetailsPage projectDetailsPage = new ProjectDetailsPage(_userRegistry, _taskService, _commentService, _exportService, _currentUser, _project);
                 projectDetailsPage.Show();
                 this.Close();
             }
@@ -70,7 +68,7 @@ namespace ProjectServ
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            ProjectDetailsPage projectDetailsPage = new ProjectDetailsPage(_userRegistry, _projectService, _taskService, _commentService, _exportService, _currentUser, _project);
+            ProjectDetailsPage projectDetailsPage = new ProjectDetailsPage(_userRegistry, _taskService, _commentService, _exportService, _currentUser, _project);
             projectDetailsPage.Show();
             this.Close();
         }

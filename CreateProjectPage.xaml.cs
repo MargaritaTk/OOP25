@@ -21,17 +21,15 @@ namespace ProjectServ
     public partial class CreateProjectPage : Window
     {
         private readonly UserRegistration _userRegistry;
-        private readonly ProjectService _projectService;
         private readonly TaskService _taskService;
         private readonly CommentService _commentService;
         private readonly ExportService _exportService;
         private readonly User _currentUser;
 
-        public CreateProjectPage(UserRegistration userRegistry, ProjectService projectService, TaskService taskService, CommentService commentService, ExportService exportService, User currentUser)
+        public CreateProjectPage(UserRegistration userRegistry, TaskService taskService, CommentService commentService, ExportService exportService, User currentUser)
         {
             InitializeComponent();
             _userRegistry = userRegistry;
-            _projectService = projectService;
             _taskService = taskService;
             _commentService = commentService;
             _exportService = exportService;
@@ -55,7 +53,7 @@ namespace ProjectServ
                 {
                     projectManager.CreateProject(name, description);
                     MessageBox.Show("The project has been successfully created!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                    ProjectListPage projectListPage = new ProjectListPage(_userRegistry, _projectService, _taskService, _commentService, _exportService, _currentUser);
+                    ProjectListPage projectListPage = new ProjectListPage(_userRegistry, _taskService, _commentService, _exportService, _currentUser);
                     projectListPage.Show();
                     this.Close();
                 }

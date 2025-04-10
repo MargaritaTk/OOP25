@@ -18,10 +18,10 @@ namespace ProjectServ
     /// <summary>
     /// Логика взаимодействия для ProjectDetailsPage.xaml
     /// </summary>
+    /// 
     public partial class ProjectDetailsPage : Window
     {
         private readonly UserRegistration _userRegistry;
-        private readonly ProjectService _projectService;
         private readonly TaskService _taskService;
         private readonly CommentService _commentService;
         private readonly ExportService _exportService;
@@ -29,11 +29,10 @@ namespace ProjectServ
         private readonly Project _project;
         private Task _draggedTask;
 
-        public ProjectDetailsPage(UserRegistration userRegistry, ProjectService projectService, TaskService taskService, CommentService commentService, ExportService exportService, User currentUser, Project project)
+        public ProjectDetailsPage(UserRegistration userRegistry, TaskService taskService, CommentService commentService, ExportService exportService, User currentUser, Project project)
         {
             InitializeComponent();
             _userRegistry = userRegistry;
-            _projectService = projectService;
             _taskService = taskService;
             _commentService = commentService;
             _exportService = exportService;
@@ -68,7 +67,7 @@ namespace ProjectServ
                 };
                 taskItem.MouseDoubleClick += (s, e) =>
                 {
-                    TaskDetailsPage taskDetailsPage = new TaskDetailsPage(_userRegistry, _projectService, _taskService, _commentService, _exportService, _currentUser, _project, task);
+                    TaskDetailsPage taskDetailsPage = new TaskDetailsPage(_userRegistry, _taskService, _commentService, _exportService, _currentUser, _project, task);
                     taskDetailsPage.Show();
                     this.Close();
                 };
@@ -87,20 +86,19 @@ namespace ProjectServ
                 EditProjectButton.IsEnabled = false;
                 DeleteProjectButton.IsEnabled = false;
                 ExportProjectButton.IsEnabled = false;
-                ImportProjectButton.IsEnabled = false;
             }
         }
 
         private void AddTaskButton_Click(object sender, RoutedEventArgs e)
         {
-            AddTaskPage addTaskPage = new AddTaskPage(_userRegistry, _projectService, _taskService, _commentService, _exportService, _currentUser, _project);
+            AddTaskPage addTaskPage = new AddTaskPage(_userRegistry, _taskService, _commentService, _exportService, _currentUser, _project);
             addTaskPage.Show();
             this.Close();
         }
 
         private void EditProjectButton_Click(object sender, RoutedEventArgs e)
         {
-            EditProjectPage editProjectPage = new EditProjectPage(_userRegistry, _projectService, _taskService, _commentService, _exportService, _currentUser, _project);
+            EditProjectPage editProjectPage = new EditProjectPage(_userRegistry, _taskService, _commentService, _exportService, _currentUser, _project);
             editProjectPage.Show();
             this.Close();
         }
@@ -109,9 +107,9 @@ namespace ProjectServ
         {
             try
             {
-                _projectService.DeleteProject(_project);
+                ProjectService.Instance.DeleteProject(_project);
                 MessageBox.Show("Project successfully deleted!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                ProjectListPage projectListPage = new ProjectListPage(_userRegistry, _projectService, _taskService, _commentService, _exportService, _currentUser);
+                ProjectListPage projectListPage = new ProjectListPage(_userRegistry, _taskService, _commentService, _exportService, _currentUser);
                 projectListPage.Show();
                 this.Close();
             }
@@ -126,62 +124,25 @@ namespace ProjectServ
             try
             {
                 List<Project> projectsToExport = new List<Project> { _project };
-                string json = _exportService.ExportProjects(projectsToExport);
-                File.WriteAllText($"{_project.Name}_export.json", json);
-                MessageBox.Show($"Project exported to file {_project.Name}_export.json!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                string filePath = $"{_project.Name}_export.json";
+                _exportService.ExportProjectsToFile(projectsToExport, filePath);
+                MessageBox.Show($"Project exported to file {filePath}!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error exporting a project: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
-        private void ImportProjectButton_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog
-                {
-                    Filter = "JSON файли (*.json)|*.json",
-                    Title = "Choose JSON file for imports"
-                };
-                if (openFileDialog.ShowDialog() == true)
-                {
-                    string json = File.ReadAllText(openFileDialog.FileName);
-                    var importedProjects = _exportService.ImportProjects(json);
-                    foreach (var importedProject in importedProjects)
-                    {
-                        _projectService.CreateProject(importedProject.Name, importedProject.Description);
-                        foreach (var task in importedProject.Tasks)
-                        {
-                            _projectService.AddTaskToProject(importedProject, task.Title, task.Description, task.Deadline, task.Status, task.AssignedDeveloper);
-                        }
-                    }
-                    MessageBox.Show("Project(s) successfully imported!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                    if (importedProjects.Exists(p => p.Name == _project.Name))
-                    {
-                        LoadProjectDetails();
-                    }
-                    else
-                    {
-                        ProjectListPage projectListPage = new ProjectListPage(_userRegistry, _projectService, _taskService, _commentService, _exportService, _currentUser);
-                        projectListPage.Show();
-                        this.Close();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error importing a project: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
         private void ListBox_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (sender is ListBox listBox && listBox.SelectedItem is ListBoxItem selectedItem && selectedItem.Tag is Task task)
             {
-                _draggedTask = task;
-                DragDrop.DoDragDrop(listBox, task, DragDropEffects.Move);
+                if (_currentUser.UserRole == Role.ProjectManager ||
+                    (_currentUser.UserRole == Role.Developer && task.AssignedDeveloper != null && task.AssignedDeveloper.Login == _currentUser.Login))
+                {
+                    _draggedTask = task;
+                    DragDrop.DoDragDrop(listBox, task, DragDropEffects.Move);
+                }
             }
         }
 
@@ -204,6 +165,7 @@ namespace ProjectServ
                 };
 
                 _draggedTask.SetStatus(newStatus);
+                ProjectService.Instance.SaveProjects(_exportService);
                 LoadProjectDetails();
                 _draggedTask = null;
             }
@@ -211,7 +173,7 @@ namespace ProjectServ
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            ProjectListPage projectListPage = new ProjectListPage(_userRegistry, _projectService, _taskService, _commentService, _exportService, _currentUser);
+            ProjectListPage projectListPage = new ProjectListPage(_userRegistry, _taskService, _commentService, _exportService, _currentUser);
             projectListPage.Show();
             this.Close();
         }

@@ -11,14 +11,19 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="337*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <TextBlock x:Name="ProjectNameTextBlock" FontSize="18" FontWeight="Bold" Margin="0,0,0,10" Grid.Row="0" Grid.ColumnSpan="2"/>
         <TextBlock x:Name="ProjectDescriptionTextBlock" FontSize="14" Margin="0,0,0,10" Grid.Row="1" TextWrapping="Wrap" Grid.ColumnSpan="2"/>
 
-        <Grid Grid.Row="2" Margin="10,10,0,0" Grid.ColumnSpan="2">
+        <Grid Grid.Row="2" Margin="10,10,0,0" Grid.ColumnSpan="2" Grid.RowSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="110*"/>
+                <RowDefinition Height="317*"/>
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -26,15 +31,15 @@
             </Grid.ColumnDefinitions>
 
             <!-- To Do -->
-            <Border Grid.Column="0" BorderBrush="#1E3A8A" BorderThickness="1" Margin="-22,0,5,0">
-                <StackPanel Margin="9,-1,-1,0">
-                    <TextBlock Text="TO DO" FontSize="16" FontWeight="Bold" Background="#FFF63B3B" Foreground="White" Padding="5" TextAlignment="Center" Height="32" Width="268"/>
-                    <ListBox x:Name="ToDoListBox" AllowDrop="True" DragOver="ListBox_DragOver" Drop="ListBox_Drop" PreviewMouseLeftButtonDown="ListBox_PreviewMouseLeftButtonDown" MinHeight="200" Height="196" Width="268"/>
+            <Border Grid.Column="0" BorderBrush="#1E3A8A" BorderThickness="1" Margin="-17,0,5,0" Grid.RowSpan="2">
+                <StackPanel Margin="-1,-1,-1,0">
+                    <TextBlock Text="TO DO" FontSize="16" FontWeight="Bold" Background="#FFF63B3B" Foreground="White" Padding="5" TextAlignment="Center" Height="32" Width="294"/>
+                    <ListBox x:Name="ToDoListBox" AllowDrop="True" DragOver="ListBox_DragOver" Drop="ListBox_Drop" PreviewMouseLeftButtonDown="ListBox_PreviewMouseLeftButtonDown" MinHeight="200" Height="196" Width="290"/>
                 </StackPanel>
             </Border>
 
             <!-- In Progress -->
-            <Border Grid.Column="1" BorderBrush="#1E3A8A" BorderThickness="1" Margin="0,0,10,0">
+            <Border BorderBrush="#1E3A8A" BorderThickness="1" Margin="283,0,10,0" Grid.ColumnSpan="2" Grid.RowSpan="2">
                 <StackPanel>
                     <TextBlock Text="IN PROGRESS" FontSize="16" FontWeight="Bold" Background="#FF31AB36" Foreground="White" Padding="5" TextAlignment="Center"/>
                     <ListBox x:Name="InProgressListBox" AllowDrop="True" DragOver="ListBox_DragOver" Drop="ListBox_Drop" PreviewMouseLeftButtonDown="ListBox_PreviewMouseLeftButtonDown" MinHeight="200"/>
@@ -42,7 +47,7 @@
             </Border>
 
             <!-- Done -->
-            <Border Grid.Column="2" BorderBrush="#1E3A8A" BorderThickness="1">
+            <Border Grid.Column="2" BorderBrush="#1E3A8A" BorderThickness="1" Grid.RowSpan="2">
                 <StackPanel>
                     <TextBlock Text="DONE" FontSize="16" FontWeight="Bold" Background="#FF520CCD" Foreground="White" Padding="5" TextAlignment="Center"/>
                     <ListBox x:Name="DoneListBox" AllowDrop="True" DragOver="ListBox_DragOver" Drop="ListBox_Drop" PreviewMouseLeftButtonDown="ListBox_PreviewMouseLeftButtonDown" MinHeight="200"/>
@@ -50,13 +55,12 @@
             </Border>
         </Grid>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Left" Margin="313,10,0,0" Grid.Column="1">
+        <StackPanel Orientation="Horizontal" Grid.Row="4" HorizontalAlignment="Left" Margin="313,10,0,0" Grid.Column="1">
             <Button x:Name="BackButton" Content="Back" Background="#FF2A4A8F" Foreground="White" Height="35" Width="100" Click="BackButton_Click" Margin="0,0,10,0"/>
         </StackPanel>
         <Button x:Name="AddTaskButton" Content="Add task" Background="#3B82F6" Foreground="White" Click="AddTaskButton_Click" Margin="108,-17,591,21" Grid.Column="1"/>
-        <Button x:Name="EditProjectButton" Content="Edit Project" Background="#FF45B6F1" Foreground="Black" Click="EditProjectButton_Click" Margin="212,-17,490,21" Grid.Column="1"/>
+        <Button x:Name="EditProjectButton" Content="Edit Project" Background="#FF45B6F1" Foreground="White" Click="EditProjectButton_Click" Margin="212,-17,490,21" Grid.Column="1"/>
         <Button x:Name="DeleteProjectButton" Content="Delete Project" Background="#FF1B526A" Foreground="White" Click="DeleteProjectButton_Click" Margin="313,-17,383,21" Grid.Column="1"/>
         <Button x:Name="ExportProjectButton" Content="Export JSON" Background="#FFC388EE" Foreground="White" Click="ExportProjectButton_Click" Margin="462,-17,239,22" Grid.Column="1"/>
-        <Button x:Name="ImportProjectButton" Content="Import JSON" Background="#FFC388EE" Foreground="White" Click="ImportProjectButton_Click" Margin="595,-17,112,22" Grid.Column="1"/>
     </Grid>
 </Window>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace ProjectServ
@@ -60,44 +61,6 @@ namespace ProjectServ
             Comments.Add(new Comment(text, author));
         }
     }
-    
-
-    //public class Task
-    //{
-    //    public string Title { get; set; }
-    //    public string Description { get; set; }
-    //    public DateTime Deadline { get; set; }
-    //    public TaskStatus Status { get; set; }
-    //    public Developer AssignedDeveloper { get; set; }
-    //    public List<Comment> Comments { get; set; } = new List<Comment>();
-
-    //    public Task()
-    //    {
-    //        Title = "Default Task";
-    //        Description = "";
-    //        Deadline = DateTime.Now.AddDays(1);
-    //        Status = TaskStatus.Open;
-    //    }
-
-    //    public Task(string title, string description, DateTime deadline)
-    //    {
-    //        if (string.IsNullOrEmpty(title)) throw new ArgumentException("Title cannot be empty.");
-    //        if (deadline < DateTime.Now) throw new ArgumentException("Deadline must be in the future.");
-    //        Title = title;
-    //        Description = description;
-    //        Deadline = deadline;
-    //        Status = TaskStatus.Open;
-    //    }
-
-    //    public virtual void UpdateStatus(TaskStatus newStatus)
-    //    {
-    //        if (Status == TaskStatus.Closed) throw new InvalidOperationException("Cannot update closed task.");
-    //        Status = newStatus;
-    //        TaskStatusChanged?.Invoke(newStatus);
-    //    }
-
-    //    public event Action<TaskStatus> TaskStatusChanged;
-    //}
     public enum TaskStatus
     {
         Open,

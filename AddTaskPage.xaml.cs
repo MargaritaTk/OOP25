@@ -20,18 +20,16 @@ namespace ProjectServ
     public partial class AddTaskPage : Window
     {
         private readonly UserRegistration _userRegistry;
-        private readonly ProjectService _projectService;
         private readonly TaskService _taskService;
         private readonly CommentService _commentService;
         private readonly ExportService _exportService;
         private readonly User _currentUser;
         private readonly Project _project;
 
-        public AddTaskPage(UserRegistration userRegistry, ProjectService projectService, TaskService taskService, CommentService commentService, ExportService exportService, User currentUser, Project project)
+        public AddTaskPage(UserRegistration userRegistry, TaskService taskService, CommentService commentService, ExportService exportService, User currentUser, Project project)
         {
             InitializeComponent();
             _userRegistry = userRegistry;
-            _projectService = projectService;
             _taskService = taskService;
             _commentService = commentService;
             _exportService = exportService;
@@ -93,16 +91,17 @@ namespace ProjectServ
                     assignedDeveloper = developer;
                 }
 
-                _projectService.AddTaskToProject(_project, title, description, deadline.Value, status, assignedDeveloper);
+                ProjectService.Instance.AddTaskToProject(_project, title, description, deadline.Value, status, assignedDeveloper);
 
                 if (!string.IsNullOrEmpty(comment))
                 {
                     var newTask = _project.Tasks.Last();
                     _commentService.AddComment(newTask, comment);
+                    ProjectService.Instance.SaveProjects(_exportService);
                 }
 
                 MessageBox.Show("Task successfully created!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                ProjectDetailsPage projectDetailsPage = new ProjectDetailsPage(_userRegistry, _projectService, _taskService, _commentService, _exportService, _currentUser, _project);
+                ProjectDetailsPage projectDetailsPage = new ProjectDetailsPage(_userRegistry, _taskService, _commentService, _exportService, _currentUser, _project);
                 projectDetailsPage.Show();
                 this.Close();
             }
@@ -114,7 +113,7 @@ namespace ProjectServ
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            ProjectDetailsPage projectDetailsPage = new ProjectDetailsPage(_userRegistry, _projectService, _taskService, _commentService, _exportService, _currentUser, _project);
+            ProjectDetailsPage projectDetailsPage = new ProjectDetailsPage(_userRegistry, _taskService, _commentService, _exportService, _currentUser, _project);
             projectDetailsPage.Show();
             this.Close();
         }

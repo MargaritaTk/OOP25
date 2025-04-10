@@ -9,6 +9,8 @@ namespace ProjectServ
     public interface IExport
     {
         string ExportProjects(List<Project> projects);
-        List<Project> ImportProjects(string jsonData);
+        void ExportProjectsToFile(List<Project> projects, string filePath);
+        void SaveToFile(List<Project> projects);
+
     }
 }

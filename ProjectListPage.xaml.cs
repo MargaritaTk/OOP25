@@ -20,17 +20,15 @@ namespace ProjectServ
     public partial class ProjectListPage : Window
     {
         private readonly UserRegistration _userRegistry;
-        private readonly ProjectService _projectService;
         private readonly TaskService _taskService;
         private readonly CommentService _commentService;
         private readonly ExportService _exportService;
         private readonly User _currentUser;
 
-        public ProjectListPage(UserRegistration userRegistry, ProjectService projectService, TaskService taskService, CommentService commentService, ExportService exportService, User currentUser)
+        public ProjectListPage(UserRegistration userRegistry, TaskService taskService, CommentService commentService, ExportService exportService, User currentUser)
         {
             InitializeComponent();
             _userRegistry = userRegistry;
-            _projectService = projectService;
             _taskService = taskService;
             _commentService = commentService;
             _exportService = exportService;
@@ -41,7 +39,7 @@ namespace ProjectServ
         private void LoadProjects()
         {
             ProjectsListBox.Items.Clear();
-            var projects = _projectService.GetProjects();
+            var projects = ProjectService.Instance.GetProjects(_currentUser);
             if (projects == null || projects.Count == 0)
             {
                 ProjectsListBox.Items.Add(new TextBlock { Text = "No projects to display.", FontStyle = FontStyles.Italic });
@@ -58,7 +56,7 @@ namespace ProjectServ
         {
             if (ProjectsListBox.SelectedItem is TextBlock selectedItem && selectedItem.Tag is Project selectedProject)
             {
-                ProjectDetailsPage projectDetailsPage = new ProjectDetailsPage(_userRegistry, _projectService, _taskService, _commentService, _exportService, _currentUser, selectedProject);
+                ProjectDetailsPage projectDetailsPage = new ProjectDetailsPage(_userRegistry, _taskService, _commentService, _exportService, _currentUser, selectedProject);
                 projectDetailsPage.Show();
                 this.Close();
             }

@@ -1,28 +1,52 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace ProjectServ
 {
     public class ExportService : IExport
     {
+        private const string FilePath = "projects.json";
+
+        public ExportService()
+        {
+        }
+
         public string ExportProjects(List<Project> projects)
         {
+            if (projects == null) throw new ArgumentNullException(nameof(projects));
             var options = new JsonSerializerOptions
             {
                 WriteIndented = true,
             };
-            return JsonSerializer.Serialize(projects ?? throw new ArgumentNullException(nameof(projects)), options);
+            return JsonSerializer.Serialize(projects, options);
         }
 
-        public List<Project> ImportProjects(string jsonData)
+        public void ExportProjectsToFile(List<Project> projects, string filePath)
         {
-            if (string.IsNullOrEmpty(jsonData)) throw new ArgumentException("JSON data cannot be empty.");
-            return JsonSerializer.Deserialize<List<Project>>(jsonData) ?? new List<Project>();
+            if (string.IsNullOrEmpty(filePath)) throw new ArgumentException("File path cannot be empty.");
+            string json = ExportProjects(projects);
+            File.WriteAllText(filePath, json);
+        }
+
+        public void SaveToFile(List<Project> projects)
+        {
+            try
+            {
+                string json = ExportProjects(projects);
+                File.WriteAllText(FilePath, json);
+                Console.WriteLine($"Projects saved to file: {FilePath}, number of projects: {projects.Count}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error saving projects: {ex.Message}");
+            }
         }
     }
 }

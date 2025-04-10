@@ -20,7 +20,6 @@ namespace ProjectServ
     public partial class TaskDetailsPage : Window
     {
         private readonly UserRegistration _userRegistry;
-        private readonly ProjectService _projectService;
         private readonly TaskService _taskService;
         private readonly CommentService _commentService;
         private readonly ExportService _exportService;
@@ -28,17 +27,16 @@ namespace ProjectServ
         private readonly Project _project;
         private readonly Task _task;
 
-        public TaskDetailsPage(UserRegistration userRegistry, ProjectService projectService, TaskService taskService, CommentService commentService, ExportService exportService, User currentUser, Project project, Task task)
+        public TaskDetailsPage(UserRegistration userRegistry, TaskService taskService, CommentService commentService, ExportService exportService, User currentUser, Project project, Task task)
         {
             InitializeComponent();
             _userRegistry = userRegistry;
-            _projectService = projectService;
             _taskService = taskService;
             _commentService = commentService;
             _exportService = exportService;
             _currentUser = currentUser;
             _project = project;
-            _task = task;
+            _task = task ?? throw new ArgumentNullException(nameof(task));
             LoadTaskDetails();
         }
 
@@ -66,7 +64,20 @@ namespace ProjectServ
             {
                 ChangeStatusButton.IsEnabled = false;
             }
+
+            if (_currentUser.UserRole != Role.ProjectManager && (_task.AssignedDeveloper == null || _task.AssignedDeveloper.Login != _currentUser.Login))
+            {
+                EditTaskButton.IsEnabled = false;
+            }
         }
+
+        private void EditTaskButton_Click(object sender, RoutedEventArgs e)
+        {
+            EditTaskPage editTaskPage = new EditTaskPage(_userRegistry, _taskService, _commentService, _exportService, _currentUser, _project, _task);
+            editTaskPage.Show();
+            this.Close(); 
+        }
+
 
         private void AddCommentButton_Click(object sender, RoutedEventArgs e)
         {
@@ -76,9 +87,10 @@ namespace ProjectServ
                 try
                 {
                     _commentService.AddComment(_task, commentText);
+                   ProjectService.Instance.SaveProjects(_exportService);
                     LoadTaskDetails();
                 }
-                catch (System.Exception ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show($"Error adding comment: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
@@ -91,9 +103,10 @@ namespace ProjectServ
             {
                 TaskStatus newStatus = _task.Status == TaskStatus.Open ? TaskStatus.InProgress : TaskStatus.Closed;
                 _task.SetStatus(newStatus);
+                ProjectService.Instance.SaveProjects(_exportService);
                 LoadTaskDetails();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show($"Error changing status: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -101,7 +114,7 @@ namespace ProjectServ
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            ProjectDetailsPage projectDetailsPage = new ProjectDetailsPage(_userRegistry, _projectService, _taskService, _commentService, _exportService, _currentUser, _project);
+            ProjectDetailsPage projectDetailsPage = new ProjectDetailsPage(_userRegistry, _taskService, _commentService, _exportService, _currentUser, _project);
             projectDetailsPage.Show();
             this.Close();
         }

@@ -9,9 +9,9 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="ProjectServ.MainPage">
-    <Position X="6.25" Y="0.5" Width="2.5" />
+    <Position X="6" Y="0.5" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAgABAAAAAAAAAAAIEAAgAAAAAAgACAAAAAAAAAAABE=</HashCode>
       <FileName>MainPage.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -21,6 +21,62 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAACAAAAAAAA=</HashCode>
       <FileName>LoginWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ProjectServ.AddTaskPage">
+    <Position X="8.75" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>BBAABAAAAAAAAAAAIGAAAAAAAAAgAAQAAAAAAAAAABA=</HashCode>
+      <FileName>AddTaskPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ProjectServ.CreateProjectPage">
+    <Position X="12" Y="0.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAIEAAAAAAAAAgAAAAAAAAECAAABA=</HashCode>
+      <FileName>CreateProjectPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ProjectServ.EditProjectPage">
+    <Position X="0.5" Y="3" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>BBAABAAAAAAAAAAAIGAAAAAAAAAgAAAAAAAAAAAAABA=</HashCode>
+      <FileName>EditProjectPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ProjectServ.EditTaskPage">
+    <Position X="5.25" Y="4.25" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>BBgABAAAAAAAAAgAIGAAACAAAAAgAAQAAAAAAAAAABA=</HashCode>
+      <FileName>EditTaskPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ProjectServ.ProjectDetailsPage">
+    <Position X="10" Y="4.25" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AAACBQAAABAAAAAEIGAAAIAAAIBgABAAAAAAACAQCBA=</HashCode>
+      <FileName>ProjectDetailsPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ProjectServ.ProjectListPage">
+    <Position X="15.5" Y="0.5" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAAABBAAAAAAAAAAIEAAAAAAAAAgAAAAAAAgACAAABA=</HashCode>
+      <FileName>ProjectListPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ProjectServ.TaskDetailsPage">
+    <Position X="15.25" Y="4.25" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAgABAAAAAAAAAgAIGAAEAAAAAAgEAAAAAAABCAAABA=</HashCode>
+      <FileName>TaskDetailsPage.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
