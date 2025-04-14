@@ -56,11 +56,11 @@ public partial class MainWindow : Window
             mainPage.Show();
             Window.GetWindow(this).Close();
         }
-        catch (ArgumentException ex)
-        {
-            MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
         catch (InvalidOperationException ex)
+        {
+            MessageBox.Show($"Operation failed: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+        catch (ArgumentException ex)
         {
             MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
@@ -69,7 +69,6 @@ public partial class MainWindow : Window
             MessageBox.Show($"An unexpected error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
-
     private void OnUserRegistered(User newUser)
     {
         Dispatcher.Invoke(() =>

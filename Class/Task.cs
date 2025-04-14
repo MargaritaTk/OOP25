@@ -16,7 +16,6 @@ namespace ProjectServ
         public Developer AssignedDeveloper { get; private set; }
         public List<Comment> Comments { get; } = new List<Comment>();
 
-        public event Action<TaskStatus> TaskStatusChanged;
 
         public Task(string title, string description, DateTime deadline)
         {
@@ -39,7 +38,6 @@ namespace ProjectServ
         {
             if (Status == TaskStatus.Closed) throw new InvalidOperationException("Cannot update closed task.");
             Status = status;
-            TaskStatusChanged?.Invoke(status);
         }
 
         public void SetDeadline(DateTime deadline)

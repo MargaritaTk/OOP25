@@ -128,6 +128,10 @@ namespace ProjectServ
                 _exportService.ExportProjectsToFile(projectsToExport, filePath);
                 MessageBox.Show($"Project exported to file {filePath}!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
+            catch (InvalidOperationException ex)
+            {
+                MessageBox.Show($"Failed to export project: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error exporting a project: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -156,18 +160,32 @@ namespace ProjectServ
         {
             if (sender is ListBox targetListBox && _draggedTask != null)
             {
-                TaskStatus newStatus = targetListBox.Name switch
+                try
                 {
-                    "ToDoListBox" => TaskStatus.Open,
-                    "InProgressListBox" => TaskStatus.InProgress,
-                    "DoneListBox" => TaskStatus.Closed,
-                    _ => _draggedTask.Status
-                };
+                    TaskStatus newStatus = targetListBox.Name switch
+                    {
+                        "ToDoListBox" => TaskStatus.Open,
+                        "InProgressListBox" => TaskStatus.InProgress,
+                        "DoneListBox" => TaskStatus.Closed,
+                        _ => _draggedTask.Status
+                    };
 
-                _draggedTask.SetStatus(newStatus);
-                ProjectService.Instance.SaveProjects(_exportService);
-                LoadProjectDetails();
-                _draggedTask = null;
+                    _draggedTask.SetStatus(newStatus);
+                    ProjectService.Instance.SaveProjects(_exportService);
+                    LoadProjectDetails();
+                }
+                catch (InvalidOperationException ex) when (ex.Message.Contains("closed task"))
+                {
+                    MessageBox.Show("This task is closed and its status cannot be changed.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error moving task: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                finally
+                {
+                    _draggedTask = null;
+                }
             }
         }
 

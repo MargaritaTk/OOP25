@@ -41,11 +41,10 @@ namespace ProjectServ
             {
                 string json = ExportProjects(projects);
                 File.WriteAllText(FilePath, json);
-                Console.WriteLine($"Projects saved to file: {FilePath}, number of projects: {projects.Count}");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error saving projects: {ex.Message}");
+                throw new InvalidOperationException($"Failed to save projects to file: {ex.Message}", ex);
             }
         }
     }

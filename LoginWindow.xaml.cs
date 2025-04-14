@@ -29,26 +29,37 @@ namespace ProjectServ
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            string login = LoginTextBox.Text;
-            string password = PasswordBox.Password;
-
-            if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password))
+            try
             {
-                MessageBox.Show("Enter your login and password!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
+                string login = LoginTextBox.Text;
+                string password = PasswordBox.Password;
 
-            var user = _userRegistry.GetUsers().FirstOrDefault(u => u.Login == login && u.Password == password);
-            if (user == null)
+                if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password))
+                {
+                    MessageBox.Show("Enter your login and password!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                var user = _userRegistry.GetUsers().FirstOrDefault(u => u.Login == login && u.Password == password);
+                if (user == null)
+                {
+                    MessageBox.Show("Incorrect login or password!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                MessageBox.Show($"Login is performed as {user.UserRole}!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                MainPage mainPage = new MainPage(_userRegistry, user);
+                mainPage.Show();
+                this.Close();
+            }
+            catch (InvalidOperationException ex)
             {
-                MessageBox.Show("Incorrect login or password!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
+                MessageBox.Show($"Operation failed: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
-            MessageBox.Show($"Login is performed as {user.UserRole}!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-            MainPage mainPage = new MainPage(_userRegistry, user);
-            mainPage.Show();
-            this.Close();
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error during login: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

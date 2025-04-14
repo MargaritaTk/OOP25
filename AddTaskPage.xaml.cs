@@ -105,6 +105,14 @@ namespace ProjectServ
                 projectDetailsPage.Show();
                 this.Close();
             }
+            catch (InvalidOperationException ex) when (ex.Message.Contains("closed task"))
+            {
+                MessageBox.Show("This task is closed and cannot be modified.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (InvalidOperationException ex)
+            {
+                MessageBox.Show($"Operation failed: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error creating a task: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);

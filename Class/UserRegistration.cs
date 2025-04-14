@@ -70,14 +70,14 @@ namespace ProjectServ
                 var options = new JsonSerializerOptions
                 {
                     WriteIndented = true,
-                    Converters = { new UserJsonConverter(this) } 
+                    Converters = { new UserJsonConverter(this) }
                 };
                 string json = JsonSerializer.Serialize(_users, options);
                 File.WriteAllText(FilePath, json);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Помилка при збереженні користувачів: {ex.Message}");
+                throw new InvalidOperationException($"Failed to save users to file: {ex.Message}", ex);
             }
         }
 
@@ -92,7 +92,7 @@ namespace ProjectServ
 
                     var options = new JsonSerializerOptions
                     {
-                        Converters = { new UserJsonConverter(this) } 
+                        Converters = { new UserJsonConverter(this) }
                     };
                     var loadedUsers = JsonSerializer.Deserialize<List<User>>(json, options);
                     if (loadedUsers != null)
@@ -103,12 +103,11 @@ namespace ProjectServ
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Помилка при завантаженні користувачів: {ex.Message}");
+                    throw new InvalidOperationException($"Failed to load users from file: {ex.Message}", ex);
                 }
             }
         }
     }
-
     public class UserJsonConverter : JsonConverter<User>
     {
         private readonly UserRegistration _userRegistry;
