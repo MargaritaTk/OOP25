@@ -73,7 +73,7 @@ namespace КП_ООП
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Помилка при збереженні користувачів: {ex.Message}");
+                throw new InvalidOperationException($"Failed to save users to file: {ex.Message}", ex);
             }
         }
 
@@ -99,12 +99,11 @@ namespace КП_ООП
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Помилка при завантаженні користувачів: {ex.Message}");
+                    throw new InvalidOperationException($"Failed to load users from file: {ex.Message}", ex);
                 }
             }
         }
     }
-
     public class UserJsonConverter : JsonConverter<User>
     {
         private readonly UserRegistration _userRegistry;

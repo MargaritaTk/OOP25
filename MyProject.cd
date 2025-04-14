@@ -33,14 +33,14 @@
   <Class Name="КП_ООП.ProjectManager">
     <Position X="1" Y="7.75" Width="6.75" />
     <TypeIdentifier>
-      <HashCode>AAAABABOAAAAAAAhICAAAgAAAAAhAABgAAAIAAAACBA=</HashCode>
+      <HashCode>AAAABABOAAAAAAABICAAAgAAAAAhAABgAAAIAAAACBA=</HashCode>
       <FileName>ProjectManager.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="КП_ООП.Task">
     <Position X="9.25" Y="0.75" Width="3.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAAAMAAQgAEAAACAAQAAAQAAAAAAAAAEQAAAAIAA=</HashCode>
+      <HashCode>AAQAAAAMAAQgAEAAACAAAAAAQAAAAAAAAAEQAAAAIAA=</HashCode>
       <FileName>Task.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -62,7 +62,7 @@
   <Class Name="КП_ООП.ExportService">
     <Position X="21" Y="7.25" Width="4" />
     <TypeIdentifier>
-      <HashCode>AABAAAAAAAAAAAAhAAAAAAAAAAAAEAAAAAAAAAAAABA=</HashCode>
+      <HashCode>AABAAAAgAAAAAAABAAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
       <FileName>ExportService.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -70,7 +70,7 @@
   <Class Name="КП_ООП.ProjectService">
     <Position X="25.75" Y="8.25" Width="5.5" />
     <TypeIdentifier>
-      <HashCode>AAAEBAAgAAABAAAAACAAAgAAAAAAAAAAQABIABAAGAA=</HashCode>
+      <HashCode>AAAEAAAAAAABAAAAACACAgAAAAAAAAAAQAAIABAACAA=</HashCode>
       <FileName>ProjectService.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -91,7 +91,7 @@
     </TypeIdentifier>
   </Class>
   <Interface Name="КП_ООП.IComment">
-    <Position X="18.5" Y="4.5" Width="3.5" />
+    <Position X="18.25" Y="5" Width="3.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>IComment.cs</FileName>
@@ -100,14 +100,14 @@
   <Interface Name="КП_ООП.IExport">
     <Position X="21.75" Y="0.5" Width="4.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAhAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AABAAAAgAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>IExport.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="КП_ООП.IProject">
     <Position X="21.25" Y="2.25" Width="5.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAIAAAACAA=</HashCode>
+      <HashCode>AAAAAAAAAAABAAAAAAACAgAAAAAAAAAAAAAIABAACAA=</HashCode>
       <FileName>IProject.cs</FileName>
     </TypeIdentifier>
   </Interface>
